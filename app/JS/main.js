@@ -13,8 +13,18 @@ fetchData(nasaAPI);
 const putInHTML = async () => {
   const insert = await fetchData(nasaAPI);
   const apiResponseDOM = document.getElementById("api-response");
-  const title = insert.collection.items[0].data[0].title;
-  const image = insert.collection.items[0].links[0].href;
-  apiResponseDOM.innerHTML = `title: ${title} <img src= ${image}/>`;
+
+  insert.collection.items.forEach((item) => {
+    const title = item.data[0].title;
+    const image = item.links[0].href;
+    const desc = item.data[0].description;
+
+    apiResponseDOM.innerHTML += `
+    <h3> title: ${title}</h3> 
+    <img src= "${image}" id = "nasa-image" />
+    <p> description: ${desc}</p>
+    ;`;
+  });
 };
+
 putInHTML();
