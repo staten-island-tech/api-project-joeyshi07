@@ -1,29 +1,41 @@
 import "../CSS/style.css";
 
-const nasaAPI = "https://images-api.nasa.gov/search?q=&media_type=image";
+const birdAPI = "https://api.ebird.org/v2/ref/taxonomy/ebird?fmt=json";
 
-async function fetchData(nasaAPI) {
-  const response = await fetch(nasaAPI);
+async function fetchData(birdAPI) {
+  const response = await fetch(birdAPI);
   const data = await response.json();
   console.log(data);
   return data;
 }
-fetchData(nasaAPI);
+fetchData(birdAPI);
 
 const putInHTML = async () => {
-  const insert = await fetchData(nasaAPI);
+  const insert = await fetchData(birdAPI);
   const apiResponseDOM = document.getElementById("api-response");
 
-  insert.collection.items.forEach((item) => {
-    const title = item.data[0].title;
-    const image = item.links[0].href;
-    const desc = item.data[0].description;
+  insert.forEach((item) => {
+    // Check if the category is 'species'
+    if (item.category === "species") {
+      // Extracting relevant information from the response
+      const commonName = item.comName;
+      const scientificName = item.sciName;
+      const order = item.order;
+      const family = item.familySciName;
 
-    apiResponseDOM.innerHTML += `
-    <h3> title: ${title}</h3> 
-    <img src= "${image}" id = "nasa-image" />
-    <p> description: ${desc}</p>
-    ;`;
+      // Constructing the HTML content to be inserted
+      const birdCardHTML = `
+        <div class="bird-card">
+          <h3>Common Name: ${commonName}</h3>
+          <h4>Scientific Name: ${scientificName}</h4>
+          <p>Order: ${order}</p>
+          <p>Family: ${family}</p>
+        </div>
+      `;
+
+      // Using insertAdjacentHTML to add the new bird card after the existing content
+      apiResponseDOM.insertAdjacentHTML("beforeend", birdCardHTML);
+    }
   });
 };
 
