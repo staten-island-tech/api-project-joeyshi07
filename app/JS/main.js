@@ -1,42 +1,59 @@
 import "../CSS/style.css";
 
-const birdAPI = "https://api.ebird.org/v2/ref/taxonomy/ebird?fmt=json";
+const apiKey = "bc57d6e4-ef97-4886-adb1-ed3d5f4bae64";
+let startPage = 1;
 
-async function fetchData(birdAPI) {
-  const response = await fetch(birdAPI);
+const startURL = "https://nuthatch.lastelm.software/v2/birds?page=";
+
+async function fetchData(page) {
+  const birdAPI = `${startURL}${page}&pageSize=100&hasImg=true&operator=AND`;
+  const response = await fetch(birdAPI, {
+    headers: { "api-key": apiKey },
+  });
   const data = await response.json();
   console.log(data);
   return data;
 }
-fetchData(birdAPI);
-
 const putInHTML = async () => {
-  const insert = await fetchData(birdAPI);
   const apiResponseDOM = document.getElementById("api-response");
 
-  insert.forEach((item) => {
-    // Check if the category is 'species'
-    if (item.category === "species") {
-      // Extracting relevant information from the response
-      const commonName = item.comName;
-      const scientificName = item.sciName;
-      const order = item.order;
-      const family = item.familySciName;
+  let morePages = true;
 
-      // Constructing the HTML content to be inserted
-      const birdCardHTML = `
+  while (morePages) {
+    const data = await fetchData(startPage);
+
+    data.entities.forEach((bird) => {
+      const name = bird.name;
+      const sciName = bird.sciName;
+      const family = bird.family;
+      const order = bird.order;
+      const region = bird.region.join(", ");
+      const image = bird.images[0];
+
+      apiResponseDOM.innerHTML += `
         <div class="bird-card">
-          <h3>Common Name: ${commonName}</h3>
-          <h4>Scientific Name: ${scientificName}</h4>
-          <p>Order: ${order}</p>
-          <p>Family: ${family}</p>
+          <div class="card-front">
+            <h3>${name}</h3>
+            <img src="${image}" alt="${name}" class="bird-image"/>
+            <p><strong>Region:</strong> ${region}</p>
+          </div>
+
+          <div class="card-back">
+            <p><strong>Scientific Name:</strong> ${sciName}</p>
+            <p><strong>Family:</strong> ${family}</p>
+            <p><strong>Order:</strong> ${order}</p>
+          </div>
         </div>
       `;
+    });
 
-      // Using insertAdjacentHTML to add the new bird card after the existing content
-      apiResponseDOM.insertAdjacentHTML("beforeend", birdCardHTML);
+    // Check if there's a next page, and update the currentPage accordingly
+    if (data.entities.length < 100) {
+      morePages = false; // No more pages
+    } else {
+      startPage++; // Move to the next page
     }
-  });
+  }
 };
 
 putInHTML();

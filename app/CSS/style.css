@@ -11,13 +11,3 @@ body,
   font-size: 10px;
   text-align: center;
 }
-
-.card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#nasa-image {
-  width: 200px;
-  align-items: center;
-}
