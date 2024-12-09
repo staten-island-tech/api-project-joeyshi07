@@ -92,11 +92,18 @@ function startQuiz() {
     let currentQuestionType = userInput.value; //what category its on now
 
     submitButton.addEventListener("click", () => {
+      if (!randomBird.hasOwnProperty(currentQuestionType)) {
+        quizResult.textContent = "Invalid question type selected.";
+        quizResult.style.color = "red";
+        return;
+      }
+
       const userAnswer = answerInput.value.trim().toLowerCase(); //their answer goes to all lowercase
-      let correctAnswer = "";
       let correctEverything = randomBird[currentQuestionType]; //answer w all the punctauation and whatnot
 
-      correctAnswer = correctEverything.replace(/[^\w\s]/gi, "").toLowerCase(); //match it up all lowercase no punctuation
+      const correctAnswer = correctEverything
+        .replace(/[^\w\s]/gi, "")
+        .toLowerCase(); //match it up all lowercase no punctuation
 
       if (userAnswer === correctAnswer) {
         quizResult.textContent = "Correct!";
