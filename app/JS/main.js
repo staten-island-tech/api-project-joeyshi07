@@ -40,14 +40,14 @@ const putInHTML = async () => {
       birdData.push({ name, sciName, family, order, region, image });
 
       const birdCardHTML = `
-        <div class="bird-card w-full sm:w-1/2 md:w-1/3 lg:w-1/5 bg-white border-2 border-teal-600 rounded-lg shadow-lg p-4 m-3 flex flex-col items-center relative overflow-hidden transition-all duration-300">
+        <div class="bird-card w-full sm:w-1/2 md:w-1/3 lg:w-1/5 bg-white border-2 border-teal-600 rounded-lg shadow-lg p-4 m-3 flex flex-col items-center relative overflow-hidden transition-all duration-300 text-xl">
           <div class="card-front flex flex-col items-center justify-center p-4 bg-white text-black z-10 transform translate-x-0 transition-transform duration-500 ease-in-out">
-            <h3 class="card-title font-bold text-1xl">${name}</h3>
+            <h3 class="card-title font-bold text-2xl">${name}</h3>
             <img src="${image}" alt="${name}" class="bird-image shadow-md shadow-slate-400 w-full aspect-square object-cover m-4"/>
-            <p class="card-region text-lg"><strong>Region:</strong> ${region}</p>
+            <p class="card-region text-xl">Region: ${region}</p>
           </div>
-          <div class="card-back flex flex-col items-center justify-center p-4 bg-white text-teal-800 z-0 absolute top-0 left-0 w-full h-full translate-x-0 transition-transform duration-500 ease-in-out ">
-            <div class="text-overlay opacity-0 transition-opacity duration-100 ease-in-out hover:opacity-100">
+          <div class="card-back flex flex-col items-center justify-center p-4 bg-white text-teal-800 z-0 absolute top-0 left-0 w-full h-full translate-x-0 text-2xl transition-transform duration-500 ease-in-out ">
+            <div class="text-overlay opacity-0 transition-opacity duration-100 ease-in-out hover:opacity-100 text-2xl">
               <p class="text-row mb-4 text-center text-lg"><strong>Scientific Name:</strong> ${sciName}</p>
               <p class="text-row mb-4 text-center text-lg"><strong>Family:</strong> ${family}</p>
               <p class="text-row mb-4 text-center text-lg"><strong>Order:</strong> ${order}</p>

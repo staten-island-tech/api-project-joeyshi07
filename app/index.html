@@ -3,24 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya+SC"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body class="bg-lime-100">
-    <h1 class="text-8xl text-gray-600 p-5">BIRD CLASSIFICATION</h1>
-    <div class="container mx-auto p-4">
+  <body class="bg-lime-100 font-sans">
+    <h1 class="text-8xl text-gray-700 font-bold p-5 font-mono">
+      Bird Classification
+    </h1>
+    <div class="container mx-auto p-4 text-lg">
       <div
         id="quiz-section"
         class="flex flex-col items-center mb-6 bg-white p-6 rounded-lg shadow-lg text-lime-100"
       >
-        <h2 class="text-4xl font-bold mb-4 text-teal-600">
+        <h2 class="text-6xl font-bold mb-4 text-teal-600 font-serif">
           Bird ID Quiz: Pick your Category Below
         </h2>
         <div id="quiz-image" class="mb-4 justify-center object-cover"></div>
         <div id="quiz-options" class="mb-4">
           <select
             id="quiz-input"
-            class="p-2 border-2 border-teal-600 rounded-lg"
+            class="p-2 border-2 border-teal-600 rounded-lg text-2xl"
           >
             <option value="name">Name</option>
             <option value="region">Region</option>
@@ -28,7 +44,7 @@
             <option value="order">Order</option>
           </select>
         </div>
-        <div id="user-answer" class="mb-4">
+        <div id="user-answer" class="mb-4 text-2xl">
           <input
             type="text"
             id="answer-input"
@@ -38,21 +54,21 @@
         </div>
         <button
           id="submit-button"
-          class="p-2 bg-teal-600 text-white rounded-lg"
+          class="p-2 bg-teal-600 text-white rounded-lg text-2xl"
         >
           Submit!
         </button>
-        <div id="quiz-result" class="mt-1 text-lg"></div>
+        <div id="quiz-result" class="mt-1 text-xl"></div>
         <button
           id="next-question"
-          class="mt-4 p-2 bg-gray-600 text-white rounded-lg"
+          class="mt-4 p-2 bg-gray-600 text-white rounded-lg text-2xl"
         >
           Next Question
         </button>
       </div>
 
       <!-- bird gallery -->
-      <h2 class="text-4xl font-bold mb-4 text-teal-600">
+      <h2 class="text-6xl font-bold mb-4 text-teal-600 font-serif">
         Explore Bird Taxonomy!
       </h2>
       <div id="api-response" class="flex flex-wrap justify-center mt-6"></div>
