@@ -14,6 +14,7 @@ async function fetchData(page) {
   console.log(data);
   return data;
 }
+
 const putInHTML = async () => {
   const apiResponseDOM = document.getElementById("api-response");
 
@@ -30,7 +31,9 @@ const putInHTML = async () => {
       const region = bird.region.join(", ");
       const image = bird.images[0];
 
-      apiResponseDOM.innerHTML += `
+      apiResponseDOM.insertAdjacentHTML(
+        "beforeend",
+        `
         <div class="bird-card">
           <div class="card-front">
             <h3>${name}</h3>
@@ -44,14 +47,14 @@ const putInHTML = async () => {
             <p><strong>Order:</strong> ${order}</p>
           </div>
         </div>
-      `;
+      `
+      );
     });
 
-    // Check if there's a next page, and update the currentPage accordingly
     if (data.entities.length < 100) {
-      morePages = false; // No more pages
+      morePages = false; // cuts off before the 100
     } else {
-      startPage++; // Move to the next page
+      startPage++; // goes to the next page
     }
   }
 };
