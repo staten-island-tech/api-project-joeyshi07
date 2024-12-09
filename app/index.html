@@ -6,9 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body>
-    <h1>BIRD IDENTIFICATION</h1>
-    <div id="api-response" class="flex flex-wrap justify-center"></div>
+  <body class="bg-lime-100">
+    <h1 class="text-8xl text-gray-600 p-5">BIRD CLASSIFICATION</h1>
+    <div class="container mx-auto p-4">
+      <div
+        id="quiz-section"
+        class="flex flex-col items-center mb-6 bg-white p-6 rounded-lg shadow-lg text-lime-100"
+      >
+        <h2 class="text-4xl font-bold mb-4 text-teal-600">
+          Bird ID Quiz: Pick your Category Below
+        </h2>
+        <div id="quiz-image" class="mb-4 justify-center object-cover"></div>
+        <div id="quiz-options" class="mb-4">
+          <select
+            id="quiz-input"
+            class="p-2 border-2 border-teal-600 rounded-lg"
+          >
+            <option value="name">Name</option>
+            <option value="region">Region</option>
+            <option value="family">Family</option>
+            <option value="order">Order</option>
+          </select>
+        </div>
+        <div id="user-answer" class="mb-4">
+          <input
+            type="text"
+            id="answer-input"
+            class="p-2 border-2 border-teal-600 rounded-lg"
+            placeholder="Enter your answer"
+          />
+        </div>
+        <button
+          id="submit-button"
+          class="p-2 bg-teal-600 text-white rounded-lg"
+        >
+          Submit!
+        </button>
+        <div id="quiz-result" class="mt-1 text-lg"></div>
+        <button
+          id="next-question"
+          class="mt-4 p-2 bg-gray-600 text-white rounded-lg"
+        >
+          Next Question
+        </button>
+      </div>
+
+      <!-- bird gallery -->
+      <h2 class="text-4xl font-bold mb-4 text-teal-600">
+        Explore Bird Taxonomy!
+      </h2>
+      <div id="api-response" class="flex flex-wrap justify-center mt-6"></div>
+    </div>
+
     <script type="module" src="/JS/main.js"></script>
   </body>
 </html>
