@@ -86,7 +86,7 @@ function startQuiz() {
 
     quizImage.insertAdjacentHTML(
       "beforeend",
-      `<img src="${randomBird.image}" alt="Random Bird" class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5  aspect-square object-cover mx-auto shadow-md shadow-slate-400 m-4" />`
+      `<img src="${randomBird.image}" alt="Random Bird" class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 object-cover mx-auto shadow-md shadow-slate-400 m-4" />`
     ); //insert into the dom
 
     let currentQuestionType = userInput.value; //what category its on now
