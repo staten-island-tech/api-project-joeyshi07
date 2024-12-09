@@ -77,34 +77,49 @@ function startQuiz() {
   const quizResult = document.querySelector("#quiz-result");
   const nextQuestion = document.querySelector("#next-question");
   const submitButton = document.querySelector("#submit-button");
-
-  function newQuestion() {
-    // Clear previous image
-    quizImage.innerHTML = "";
-
-    const randomBird = birdData[Math.floor(Math.random() * birdData.length)]; // random bird from array
-
-    quizImage.insertAdjacentHTML(
-      "beforeend",
-      `<img src="${randomBird.image}" alt="Random Bird" class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 object-cover mx-auto shadow-md shadow-slate-400 m-4" />`
-    ); //insert into the dom
-
-    let currentQuestionType = userInput.value; //what category its on now
-
+  function startQuiz() {
+    const quizImage = document.querySelector("#quiz-image"); // identify
+    const userInput = document.querySelector("#quiz-input"); // pick category
+    const answerInput = document.querySelector("#answer-input"); // user answer
+    const quizResult = document.querySelector("#quiz-result");
+    const nextQuestion = document.querySelector("#next-question");
+    const submitButton = document.querySelector("#submit-button");
+  
+    let currentBird = null; // To track the current bird
+    let currentQuestionType = userInput.value; // Track current category
+  
+    function newQuestion() {
+      // Clear previous image
+      quizImage.innerHTML = "";
+  
+      // Get a random bird from the array
+      currentBird = birdData[Math.floor(Math.random() * birdData.length)];
+  
+      // Insert bird image into the DOM
+      quizImage.insertAdjacentHTML(
+        "beforeend",
+        `<img src="${currentBird.image}" alt="Random Bird" class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 object-cover mx-auto shadow-md shadow-slate-400 m-4" />`
+      );
+  
+      quizResult.textContent = "";
+      answerInput.value = ""; // Clear previous answer
+    }
+  
+    // Attach event listener for answer submission
     submitButton.addEventListener("click", () => {
-      if (!randomBird.hasOwnProperty(currentQuestionType)) {
+      if (!currentBird || !currentBird.hasOwnProperty(currentQuestionType)) {
         quizResult.textContent = "Invalid question type selected.";
         quizResult.style.color = "red";
         return;
       }
-
-      const userAnswer = answerInput.value.trim().toLowerCase(); //their answer goes to all lowercase
-      let correctEverything = randomBird[currentQuestionType]; //answer w all the punctauation and whatnot
-
+  
+      const userAnswer = answerInput.value.trim().toLowerCase(); // User input, lowercased
+      let correctEverything = currentBird[currentQuestionType]; // Actual correct answer
+  
       const correctAnswer = correctEverything
         .replace(/[^\w\s]/gi, "")
-        .toLowerCase(); //match it up all lowercase no punctuation
-
+        .toLowerCase(); // Lowercase and strip punctuation
+  
       if (userAnswer === correctAnswer) {
         quizResult.textContent = "Correct!";
         quizResult.style.color = "green";
@@ -112,17 +127,19 @@ function startQuiz() {
         quizResult.textContent = `Incorrect! The correct answer was: ${correctEverything}`;
         quizResult.style.color = "red";
       }
-
-      answerInput.value = "";
+  
+      answerInput.value = ""; // Clear input field
     });
-
+  
+    // Update question type when user changes it
     userInput.addEventListener("change", () => {
-      //other category types
       currentQuestionType = userInput.value;
     });
-    quizResult.textContent = "";
+  
+    // Attach event listener for next question
+    nextQuestion.addEventListener("click", newQuestion);
+  
+    newQuestion(); // Start with the first question
   }
-  newQuestion();
-  nextQuestion.addEventListener("click", newQuestion); //new question
-}
+  
 putInHTML();
