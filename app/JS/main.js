@@ -82,23 +82,23 @@ function startQuiz() {
   let currentQuestionType = userInput.value; // Track current category
 
   function newQuestion() {
-    // Clear previous image
+    //clear pic before
     quizImage.innerHTML = "";
 
-    // Get a random bird from the array
+    //random bird from the api
     currentBird = birdData[Math.floor(Math.random() * birdData.length)];
 
-    // Insert bird image into the DOM
+    //insert the pic
     quizImage.insertAdjacentHTML(
       "beforeend",
       `<img src="${currentBird.image}" alt="Random Bird" class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 object-cover mx-auto shadow-md shadow-slate-400 m-4" />`
     );
 
     quizResult.textContent = "";
-    answerInput.value = ""; // Clear previous answer
+    answerInput.value = ""; //clear input
   }
 
-  // Attach event listener for answer submission
+  //send help????
   submitButton.addEventListener("click", () => {
     if (!currentBird || !currentBird.hasOwnProperty(currentQuestionType)) {
       quizResult.textContent = "Invalid question type selected.";
@@ -106,12 +106,12 @@ function startQuiz() {
       return;
     }
 
-    const userAnswer = answerInput.value.trim().toLowerCase(); // User input, lowercased
-    let correctEverything = currentBird[currentQuestionType]; // Actual correct answer
+    const userAnswer = answerInput.value.trim().toLowerCase(); //make everything lowercase
+    let correctEverything = currentBird[currentQuestionType]; //just the original api
 
     const correctAnswer = correctEverything
       .replace(/[^\w\s]/gi, "")
-      .toLowerCase(); // Lowercase and strip punctuation
+      .toLowerCase(); //make lowercase too to match
 
     if (userAnswer === correctAnswer) {
       quizResult.textContent = "Correct!";
@@ -121,18 +121,17 @@ function startQuiz() {
       quizResult.style.color = "red";
     }
 
-    answerInput.value = ""; // Clear input field
+    answerInput.value = ""; //clear the input
   });
 
-  // Update question type when user changes it
+  //update category
   userInput.addEventListener("change", () => {
     currentQuestionType = userInput.value;
   });
 
-  // Attach event listener for next question
   nextQuestion.addEventListener("click", newQuestion);
 
-  newQuestion(); // Start with the first question
+  newQuestion(); //first q
 }
 
 putInHTML();
